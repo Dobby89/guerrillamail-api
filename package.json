@@ -1,0 +1,42 @@
+{
+  "name": "guerrillamail-api",
+  "version": "1.0.0",
+  "description": "A JavaScript promise-based wrapper for the Guerrilla Mail API",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dobby89/guerrillamail-api.git"
+  },
+  "keywords": [
+    "guerrillamail",
+    "guerrilla",
+    "mail",
+    "email",
+    "api",
+    "wrapper"
+  ],
+  "author": "Robin O'Neill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dobby89/guerrillamail-api/issues"
+  },
+  "homepage": "https://github.com/Dobby89/guerrillamail-api#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "eslint": "^5.12.0",
+    "eslint-config-ao": "^0.0.1-rc.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "eventemitter3": "^3.1.0",
+    "setinterval-plus": "^1.0.3"
+  }
+}

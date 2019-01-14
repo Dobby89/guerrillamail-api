@@ -1,0 +1,6 @@
+{
+    "extends": "ao",
+    "env": {
+      "es6": true
+    }
+}
