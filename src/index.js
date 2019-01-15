@@ -1,6 +1,6 @@
-import axios from 'axios';
-import SetIntervalPlus from 'setinterval-plus';
-import EventEmitter from 'eventemitter3';
+const axios = require('axios');
+const SetIntervalPlus = require('setinterval-plus');
+const EventEmitter = require('eventemitter3');
 
 const baseUrl = 'https://api.guerrillamail.com/ajax.php';
 const eventStrings = {
@@ -44,7 +44,7 @@ function syncLocalEmails(localEmails, emailIds) {
 }
 
 // Guerrilla API Docs: https://docs.google.com/document/d/1Qw5KQP1j57BPTDmms5nspe-QAjNEsNg8cQHpAAycYNM/edit?hl=en
-export default class Guerrilla extends EventEmitter {
+class Guerrilla extends EventEmitter {
 	constructor(config = {}) {
 		super();
 
@@ -320,3 +320,5 @@ export default class Guerrilla extends EventEmitter {
 		this.emailsReceived = [];
 	}
 }
+
+module.exports = Guerrilla;
