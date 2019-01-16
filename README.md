@@ -9,7 +9,7 @@ A Promise-based Javascript wrapper for the [Guerrillamail API](https://www.guerr
 
 ## Features
 
-- Interval polling with built-in `start`, `stop`, `play`, `pause` and destroy methods, using [setinterval-plus](https://www.npmjs.com/package/setinterval-plus)
+- Interval polling with built-in **start**, **stop**, **play**, **pause** methods, using [setinterval-plus](https://www.npmjs.com/package/setinterval-plus)
 - Promise-based, using [Axios](https://www.npmjs.com/package/axios)
 - Event emitter, using [EventEmitter3][event emitter]
 
@@ -24,22 +24,58 @@ npm install guerrillamail-api
 
 ## Usage
 
+**Important:** Once you instantiate the class, you must wait for the API to register a random email address. This is still the case, even if you are using a [custom email address](#custom-email-address).
+
+The class will emit the `emailAddress` event when an email address has been successfully registered with the API. Read more about the available [event methods](#event-methods).
+
 ```.js
 import GuerrillaMailApi from 'guerrillamail-api';
 
 const GuerrillaApi = new GuerrillaMailApi();
 
-// Wait for the API to assign an email address by listening for the `emailAddress` event
 GuerrillaApi.on('emailAddress', result => {
-    GuerrillaApi.pollStart(); // Begin polling for new emails
+    GuerrillaApi.getEmailList().then(result => {
+        // ...
+    });
 });
+```
 
-// Wait for the `newEmail` event to be emitted
+
+### Custom email address
+
+It is possible to connect to a specific inbox by setting `emailUser` in the config object when you instantiate the class. See [config](#config) section.
+
+```.js
+const GuerrillaApi = new GuerrillaMailApi({
+    emailUser: 'sampleusr'
+});
+```
+
+
+### Polling
+
+Use [`pollStart()`](#pollstart) to start polling the inbox for new emails.
+
+As with all methods which interact with the API, you must call the `pollStart()` method **after** the API has registered an email address.
+
+```.js
+GuerrillaApi.on('emailAddress', result => {
+    // Begin polling for new emails after the email address has been registered
+    GuerrillaApi.pollStart();
+});
+```
+
+Wait for the poller to emit the `newEmail` event:
+
+```.js
 GuerrillaApi.on('newEmail', result => {
     // You got mail!
 });
 ```
 
+#### Tips
+ - Control the frequency of polling by setting [`pollInterval`](#config-reference-table) when you instantiate the class.
+ - It is possible to [play](#pollplay), [pause](#pollpause) and [stop](#pollstop) polling for emails. See [polling methods](#polling-methods).
 
 
 ## Config
@@ -50,7 +86,7 @@ Pass config options when instantiating the wrapper.
 
 | Config Property | Type | Default | Description |
 | - | - | - | - |
-| `emailUser` | Boolean\|String | `false` | Connect to a particular inbox, otherwise the API will assign you a random inbox. |
+| `emailUser` | Boolean\|String | `false` | Connect to a specific inbox, otherwise the API will assign you a random inbox. |
 | `pollInterval` | Number | `20000` | How often (in milliseconds) to poll for new emails. |
 
 ### Example
@@ -250,6 +286,8 @@ GuerrillaApi.on('newEmail', newEmails => {
 ## Events
 
 Event strings are emitted in certain situations, which can be listened for using the `.on()` method.
+
+**Important:** The key event to listen for is `emailAddress`. This means the API has registered the inbox and is ready.
 
 ### Event examples:
 

@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+This document follows the best practices outlined by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/)
+
+## [1.1.1] - 2019-01-16
+### Added
+- Improve documentation in README.md
+    - Polling for new emails.
+    - Connecting to custom email address.
+    - Reacting to events.
+
+
+
 ## [1.1.0] - 2019-01-15
 ### Changed
 - `import` to `require()` statements for compatibility with Node modules.
