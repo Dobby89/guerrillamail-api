@@ -28,7 +28,7 @@ npm install guerrillamail-api
 
 The class will emit the `emailAddress` event when an email address has been successfully registered with the API. Read more about the available [event methods](#event-methods).
 
-```.js
+```javascript
 import GuerrillaMailApi from 'guerrillamail-api';
 
 const GuerrillaApi = new GuerrillaMailApi();
@@ -45,7 +45,7 @@ GuerrillaApi.on('emailAddress', result => {
 
 It is possible to connect to a specific inbox by setting `emailUser` in the config object when you instantiate the class. See [config](#config) section.
 
-```.js
+```javascript
 const GuerrillaApi = new GuerrillaMailApi({
     emailUser: 'sampleusr'
 });
@@ -58,7 +58,7 @@ Use [`pollStart()`](#pollstart) to start polling the inbox for new emails.
 
 As with all methods which interact with the API, you must call the `pollStart()` method **after** the API has registered an email address.
 
-```.js
+```javascript
 GuerrillaApi.on('emailAddress', result => {
     // Begin polling for new emails after the email address has been registered
     GuerrillaApi.pollStart();
@@ -67,7 +67,7 @@ GuerrillaApi.on('emailAddress', result => {
 
 Wait for the poller to emit the `newEmail` event:
 
-```.js
+```javascript
 GuerrillaApi.on('newEmail', result => {
     // You got mail!
 });
@@ -91,7 +91,7 @@ Pass config options when instantiating the wrapper.
 
 ### Example
 
-```.js
+```javascript
 const GuerrillaApi = new GuerrillaMailApi({
     emailUser: 'sampleusr'
     pollInterval: 15000
@@ -113,7 +113,7 @@ Register a new random email address with the API.
 
 API function: [`get_email_address`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.getEmailAddress().then(result => {
     // ...
 });
@@ -125,7 +125,7 @@ Register a custom email user with the API.
 
 API function: [`set_email_user`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.setEmailUser({
     email_user: 'sampleusr'
 }).then(result => {
@@ -139,7 +139,7 @@ Get a maximum of 20 messages from the specified offset.
 
 API function: [`get_email_list`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.getEmailList({
     offset: 0
 }).then(result => {
@@ -153,7 +153,7 @@ Get emails that are older (lower ID) than the given email ID (where `seq` is the
 
 API function: [`get_older_list`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.getOlderList({
     seq: 815
 }).then(result => {
@@ -167,7 +167,7 @@ API function: [`check_email`][api docs].
 
 Check for new email on the server.
 
-```.js
+```javascript
 GuerrillaApi.checkEmail({
     seq: 456
 }).then(result => {
@@ -181,7 +181,7 @@ API function: [`fetch_email`][api docs].
 
 Get the contents of an email by ID.
 
-```.js
+```javascript
 GuerrillaApi.fetchEmail(789).then(result => {
     // ...
 });
@@ -193,7 +193,7 @@ Forget the current registered email address.
 
 API function: [`forget_me`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.forgetMe().then(result => {
     // ...
 });
@@ -205,7 +205,7 @@ Delete the emails from the server by ID.
 
 API function: [`del_email`][api docs].
 
-```.js
+```javascript
 GuerrillaApi.delEmail(123, 456, 789).then(result => {
     // ...
 });
@@ -221,7 +221,7 @@ Start polling for new emails every _x_ milliseconds, as defined by [`pollInterva
 
 See [event examples](#event-examples) of how to react when new emails are received.
 
-```.js
+```javascript
 GuerrillaApi.pollStart();
 ```
 
@@ -229,7 +229,7 @@ GuerrillaApi.pollStart();
 
 Stop polling for new emails.
 
-```.js
+```javascript
 GuerrillaApi.pollStop();
 ```
 
@@ -237,7 +237,7 @@ GuerrillaApi.pollStop();
 
 Resume polling for new emails.
 
-```.js
+```javascript
 GuerrillaApi.pollPlay();
 ```
 
@@ -245,7 +245,7 @@ GuerrillaApi.pollPlay();
 
 Pause polling for new emails.
 
-```.js
+```javascript
 GuerrillaApi.pollPause();
 ```
 
@@ -253,7 +253,7 @@ GuerrillaApi.pollPause();
 
 Destroy the poller.
 
-```.js
+```javascript
 GuerrillaApi.pollDestroy();
 ```
 
@@ -263,7 +263,7 @@ GuerrillaApi.pollDestroy();
 
 Destroy the poller and make the API forget the current email address (like you were never here!).
 
-```.js
+```javascript
 GuerrillaApi.destroy();
 ```
 
@@ -275,7 +275,7 @@ See full list of emitted events in the [event reference table](#event-reference-
 
 #### on(eventString, data)
 
-```.js
+```javascript
 GuerrillaApi.on('newEmail', newEmails => {
     // Do stuff with the new emails
 });
@@ -291,7 +291,7 @@ Event strings are emitted in certain situations, which can be listened for using
 
 ### Event examples:
 
-```.js
+```javascript
 GuerrillaApi.on('emailAddress', emailAddressDetails => {
     GuerrillaApi.pollStart(); // Start polling for new emails
 });
