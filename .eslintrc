@@ -1,6 +1,13 @@
 {
     "extends": "ao",
     "env": {
-      "es6": true
+      "es6": true,
+      "node": true
+    },
+    "plugins": ["jest"],
+    "globals": {
+      "describe": true,
+      "it": true,
+      "expect": true
     }
 }
