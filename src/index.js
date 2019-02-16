@@ -1,6 +1,12 @@
-const axios = require('axios');
-const SetIntervalPlus = require('setinterval-plus');
-const EventEmitter = require('eventemitter3');
+import axios from 'axios';
+import SetIntervalPlus from 'setinterval-plus';
+import EventEmitter from 'eventemitter3';
+import {
+	partiallyApply,
+	getMostRecentEmail,
+	filterNewEmails,
+	syncLocalEmails
+} from './utils';
 
 const baseUrl = 'https://api.guerrillamail.com/ajax.php';
 const eventStrings = {
@@ -16,35 +22,8 @@ const defaultConfig = {
 	pollInterval: 20000
 }
 
-function partiallyApply(fn, ...initialArgs) {
-	return function partiallyApplied (...laterArgs) {
-		return fn(...initialArgs, ...laterArgs);
-	}
-}
-
-function getMostRecentEmail(emailList) {
-	if (emailList.length) {
-		return emailList[emailList.length - 1];
-	}
-	return false;
-}
-
-function filterNewEmails(oldEmails, possibleNewEmails) {
-	if (!oldEmails.length) {
-		// We don't have any old emails, so all of them must be new
-		return possibleNewEmails;
-	}
-
-	const oldEmailIds = oldEmails.map(email => email.mail_id);
-	return possibleNewEmails.filter(newEmail => !oldEmailIds.includes(newEmail.mail_id));
-}
-
-function syncLocalEmails(localEmails, emailIds) {
-	return localEmails.filter(email => !emailIds.includes(email.mail_id));
-}
-
 // Guerrilla API Docs: https://docs.google.com/document/d/1Qw5KQP1j57BPTDmms5nspe-QAjNEsNg8cQHpAAycYNM/edit?hl=en
-class Guerrilla extends EventEmitter {
+export default class Guerrilla extends EventEmitter {
 	constructor(config = {}) {
 		super();
 
@@ -320,5 +299,3 @@ class Guerrilla extends EventEmitter {
 		this.emailsReceived = [];
 	}
 }
-
-module.exports = Guerrilla;
