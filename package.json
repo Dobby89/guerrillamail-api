@@ -1,6 +1,6 @@
 {
   "name": "guerrillamail-api",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A JavaScript promise-based wrapper for the Guerrilla Mail API",
   "main": "src/index.js",
   "scripts": {

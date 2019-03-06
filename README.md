@@ -17,7 +17,7 @@ A Promise-based Javascript wrapper for the [Guerrillamail API](https://www.guerr
 
 ## Installation
 
-```
+```sh
 npm install guerrillamail-api
 ```
 
